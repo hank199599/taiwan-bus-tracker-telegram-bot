@@ -1,5 +1,5 @@
 # taiwan-bus-tracker-telegram-bot
-
+> Reference: [Cloud Pub/Sub Tutorial (2nd gen)](https://cloud.google.com/functions/docs/tutorials/pubsub#functions-deploy-command-python) 
 # System flow
 
 ![diagram](./diagram/system_flow.png)

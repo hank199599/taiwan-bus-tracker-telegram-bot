@@ -3,14 +3,18 @@ import constants
 from firebase_admin import credentials
 from firebase_admin import db
 
-class RealTimeDatabase():
-  __cred = credentials.Certificate(constants.FIREBASE_CONFIG_PATH)
-  __dbUrl = constants.FIREBASE_REALTIME_DB_PATH
+# config content downloaded from Firebase
+config = {}
 
-  def __init__(self):
-    firebase_admin.initialize_app(self.__cred, {
-    'databaseURL': self.__dbUrl
-  })
+
+cred = credentials.Certificate(config)
+dbUrl = constants.FIREBASE_REALTIME_DB_PATH
+
+firebase_admin.initialize_app(cred, {
+    'databaseURL': dbUrl
+})
+
+class RealTimeDatabase():
     
   async def getData(self, path:str):
     ref = db.reference(path)

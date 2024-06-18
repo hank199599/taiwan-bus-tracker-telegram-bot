@@ -10,10 +10,12 @@ gcloud functions deploy bus_auto_tracker --gen2 --runtime=python311 --region=us-
 ```
 
 # RealTimeDB Schema
+> reference page: https://ebus.gov.taipei/EBus/VsSimpleMap?routeid=0100067200&gb=1
+
 ```json
 {
   "user": {
-    "1307911377": {
+    "Telegram_user_id": {
       "Taipei": [
         {
           "672": [

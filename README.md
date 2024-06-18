@@ -4,6 +4,11 @@
 
 ![diagram](./diagram/system_flow.png)
 
+# Cloud Function deploy command
+```cli
+gcloud functions deploy bus_auto_tracker --gen2 --runtime=python311 --region=us-central1 --source=. --entry-point=subscribe --trigger-topic="auto_check_bus_status"
+```
+
 # RealTimeDB Schema
 ```json
 {

@@ -41,7 +41,7 @@ class notifyUserUseCase():
 
                   busDist = stops[len(stops)-1]
                   targetStopName = stops[detail['StopSequence']-1]
-                  distance = bus['StopSequence'] - detail['StopSequence']
+                  distance = detail['StopSequence'] - bus['StopSequence']
 
                   notifyMessage = self.messageGen(routeName, busDist, bus['PlateNumb'], targetStopName, distance)
                   await self.notifyService.notifyUser(user,notifyMessage)

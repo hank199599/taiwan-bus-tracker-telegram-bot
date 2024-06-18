@@ -11,7 +11,7 @@ class busRepository():
 
     def busDistanceFilter(self, busCurrentStop:int):
 
-        dis = busCurrentStop['StopSequence'] - self.StopSequence
+        dis = self.StopSequence - busCurrentStop['StopSequence'] 
         return  self.min_distance <= dis and dis <= self.max_distance
 
     async def getBusStops(self):

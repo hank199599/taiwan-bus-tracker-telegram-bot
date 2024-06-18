@@ -16,12 +16,12 @@ gcloud functions deploy bus_auto_tracker --gen2 --runtime=python311 --region=us-
 {
   "user": {
     "Telegram_user_id": {
-      "Taipei": [
+      "City_Name": [
         {
-          "672": [
+          "Route_Name": [
             {
-              "StopSequence": 7,
-              "direction": 1
+              "Stop_Sequence": int,
+              "direction": int
             }
           ]
         }

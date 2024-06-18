@@ -9,18 +9,19 @@ class notifyUserUseCase():
     self.notifyService = notifyServiceRepository()
     self.db = RealTimeDatabase()
 
-  def messageGen(self, routeNumber, busDist, plateNumber, busStopName):
-    return f'''【{busStopName} 到站通知】
-    路線：{routeNumber} ( 往{busDist})
+  def messageGen(self, routeName:str, busDist:str, plateNumber:str, busStopName:str, distance: int):
+    return f'''【{busStopName} 即將進站 (距離 {distance} 站)】
+    路線：{routeName}
+    終點站:{busDist}
     車牌：{plateNumber}'''
 
-  async def getBusStopName(self,StopSequence):
+  async def getBusStopNames(self):
     stops = await self.busService.getBusStops()
 
     if stops is None:
       return ''
     
-    return stops[StopSequence-1] if StopSequence < len(stops) else ''
+    return stops
   
   async def exec(self):
     data = await self.db.getData(f"{self.__dataPath}/")
@@ -36,8 +37,11 @@ class notifyUserUseCase():
 
               if buses is not None:
                 for bus in buses:
-                  busDist = await self.busService.getBusDestination(detail['direction'])
-                  targetStopName = await self.getBusStopName(detail['StopSequence'])
+                  stops = await self.busService.getBusStops()
 
-                  notifyMessage = self.messageGen(routeName, busDist, bus['PlateNumb'], targetStopName)
+                  busDist = stops[len(stops)-1]
+                  targetStopName = stops[detail['StopSequence']-1]
+                  distance = bus['StopSequence'] - detail['StopSequence']
+
+                  notifyMessage = self.messageGen(routeName, busDist, bus['PlateNumb'], targetStopName, distance)
                   await self.notifyService.notifyUser(user,notifyMessage)

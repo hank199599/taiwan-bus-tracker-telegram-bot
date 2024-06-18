@@ -11,18 +11,8 @@ class busRepository():
 
     def busDistanceFilter(self, busCurrentStop:int):
 
-        if self.direction == 0:
-            dis = busCurrentStop['StopSequence'] - self.StopSequence
-        else:
-            dis = self.StopSequence - busCurrentStop['StopSequence']
-        
+        dis = busCurrentStop['StopSequence'] - self.StopSequence
         return  self.min_distance <= dis and dis <= self.max_distance
-
-    async def getBusDestination(self, direction):
-        resp = await self.tdxService.getRouteInfo(self.city,self.routeName)
-        if resp is None:
-            return ''
-        return resp['DestinationStopNameZh'] if direction == 0 else resp['DepartureStopNameZh']
 
     async def getBusStops(self):
         try:
@@ -31,7 +21,9 @@ class busRepository():
             if resp is None:
                 return []
             
-            stops = [item['StopName']['Zh_tw'] for item in resp[0]["Stops"]]
+            routes = list(filter(lambda item: item["RouteName"]["Zh_tw"] == self.routeName and item["Direction"] == self.direction, resp))
+
+            stops = [item['StopName']['Zh_tw'] for item in routes[0]["Stops"]]
             
             return stops
         except Exception as e:

@@ -30,3 +30,7 @@ gcloud functions deploy bus_auto_tracker --gen2 --runtime=python311 --region=us-
   }
 }
 ```
+# Actual Diagram
+|Telegram|Bus+|
+|----|----|
+|![telegram notification](./screenshots/telegrram.jpg)|![same route in Bus+](./screenshots/bus+.jpg)|
